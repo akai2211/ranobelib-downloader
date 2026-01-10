@@ -64,6 +64,13 @@ class SettingsWidget(QWidget):
         )
         settings_layout.addWidget(self.option_checkboxes["download_images"])
 
+        self.option_checkboxes["compress_images"] = QCheckBox("Сжимать изображения")
+        self.option_checkboxes["compress_images"].setChecked(True)
+        self.option_checkboxes["compress_images"].setToolTip(
+            "Ограничение высоты/ширины изображений до 800px"
+        )
+        settings_layout.addWidget(self.option_checkboxes["compress_images"])
+
         self.option_checkboxes["add_translator"] = QCheckBox("Добавлять данные о переводчике")
         self.option_checkboxes["add_translator"].setChecked(False)
         self.option_checkboxes["add_translator"].setToolTip(
@@ -201,7 +208,7 @@ class SettingsWidget(QWidget):
         """Возвращает виджеты настроек в порядке табуляции."""
         chain: List[QWidget] = []
 
-        for key in ["download_cover", "download_images", "add_translator", "group_by_volumes"]:
+        for key in ["download_cover", "download_images", "compress_images", "add_translator", "group_by_volumes"]:
             checkbox = self.option_checkboxes.get(key)
             if checkbox is not None:
                 chain.append(checkbox)

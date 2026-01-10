@@ -12,6 +12,7 @@ from PIL import Image
 from urllib.parse import urlparse
 
 from .api import RanobeLibAPI
+from .settings import settings
 
 
 class ImageHandler:
@@ -133,17 +134,18 @@ class ImageHandler:
             except Exception as e:
                 print(f"\n⚠️ Не удалось конвертировать {filepath} в JPG: {e}")
 
-        try:
-            with Image.open(filepath) as img:
-                width, height = img.size
-                if width > 800 or height > 800:
-                    ratio = min(800 / width, 800 / height)
-                    new_size = (int(width * ratio), int(height * ratio))
-                    resample_filter = getattr(Image, "LANCZOS", getattr(Image, "ANTIALIAS", 0))
-                    resized_img = img.resize(new_size, resample_filter)
-                    resized_img.save(filepath, quality=90)
-        except Exception as e:
-            print(f"\n⚠️ Не удалось изменить размер изображения {filepath}: {e}")
+        if settings.get("compress_images"):
+            try:
+                with Image.open(filepath) as img:
+                    width, height = img.size
+                    if width > 800 or height > 800:
+                        ratio = min(800 / width, 800 / height)
+                        new_size = (int(width * ratio), int(height * ratio))
+                        resample_filter = getattr(Image, "LANCZOS", getattr(Image, "ANTIALIAS", 0))
+                        resized_img = img.resize(new_size, resample_filter)
+                        resized_img.save(filepath, quality=90)
+            except Exception as e:
+                print(f"\n⚠️ Не удалось изменить размер изображения {filepath}: {e}")
 
         return filepath
 

@@ -24,6 +24,7 @@ class Settings:
         self._defaults: Dict[str, Any] = {
             "download_cover": True,
             "download_images": True,
+            "compress_images": True,
             "add_translator": False,
             "group_by_volumes": True,
             "save_directory": "downloads",

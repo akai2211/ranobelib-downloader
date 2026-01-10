@@ -151,6 +151,7 @@ def _show_settings():
     print("⚙️ Текущие настройки:")
     print(f"  • Скачивать обложку: {'✅' if settings.get('download_cover') else '❌'}")
     print(f"  • Скачивать изображения: {'✅' if settings.get('download_images') else '❌'}")
+    print(f"  • Сжимать изображения: {'✅' if settings.get('compress_images') else '❌'}")
     print(f"  • Добавлять данные о переводчике: {'✅' if settings.get('add_translator') else '❌'}")
     print(f"  • Группировать по томам: {'✅' if settings.get('group_by_volumes') else '❌'}")
     print(f"  • Каталог для сохранения: {settings.get('save_directory')}")
@@ -181,6 +182,14 @@ def _change_settings():
     )
     if choice:
         settings.set("download_images", choice in {"y", "yes", "да", "д", "1"})
+
+    choice = (
+        input(f"  Сжимать изображения? (y/n) [{('y' if settings.get('compress_images') else 'n')}]: ")
+        .strip()
+        .lower()
+    )
+    if choice:
+        settings.set("compress_images", choice in {"y", "yes", "да", "д", "1"})
 
     choice = (
         input(f"  Добавлять данные о переводчике? (y/n) [{('y' if settings.get('add_translator') else 'n')}]: ")
