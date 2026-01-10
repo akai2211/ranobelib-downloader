@@ -182,6 +182,8 @@ class ContentProcessor:
 
             if final_filename:
                 img["src"] = f"images/{final_filename}"
+                img.insert_before(soup.new_tag("br"))
+                img.insert_after(soup.new_tag("br"))
             else:
                 img.decompose()
 
