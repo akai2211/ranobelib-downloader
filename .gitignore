@@ -17,3 +17,6 @@ lib/
 *.log
 .pytest_cache/
 .coverage
+
+# Авторизация
+user_data/
